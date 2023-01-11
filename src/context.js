@@ -38,6 +38,10 @@ const AppProvider = ({ children }) => {
     const cart = await response.json()
     dispatch({type:'DISPLAY_ITEMS', payload:cart})
   }
+  //toggleAmount
+  const toggleAmount = (id, type)=>{
+    dispatch({type:'TOGGLE_AMOUNT', payload:{id, type}})
+  }
   //useEffectNo.01
   useEffect(()=>{
     fetchData()
@@ -47,7 +51,7 @@ const AppProvider = ({ children }) => {
     dispatch({type:'GET_TOTALS'})//totalAtNavBar
   },[state.cart])
   return (
-    <AppContext.Provider value={{...state, clearCart,removeSingleItem,increase, decrease}}>
+    <AppContext.Provider value={{...state, clearCart,removeSingleItem,increase, decrease, toggleAmount}}>
       {children}
     </AppContext.Provider>
   )

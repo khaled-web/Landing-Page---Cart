@@ -29,6 +29,21 @@ const reducer = (state, action)=>{
   }).filter((cartItem)=>cartItem.amount!==0)//importantToRemove..Item=0
   return{...state, cart:tempCart}
  }
+  //Action.decreaseSingleItem
+  if(action.type === 'TOGGLE_AMOUNT'){
+    const tempCart = state.cart.map((cartItem)=>{
+      if(cartItem.id ===action.payload.id){
+        if(action.payload.type === 'inc'){
+          return{...cartItem, amount:cartItem.amount + 1}
+        }
+        if(action.payload.type === 'dec'){
+          return{...cartItem, amount:cartItem.amount - 1}
+        }
+      }
+      return cartItem
+    }).filter((cartItem)=>cartItem.amount!==0)
+    return{...state, cart:tempCart}
+  }
   //Action.CalculateTotals
   if(action.type === 'GET_TOTALS'){
    let {total, amount}=state.cart.reduce((cartTotal,cartItem)=>{
